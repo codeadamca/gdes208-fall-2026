@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars API</title>
+</head>
+<body>
+    
+    <h1>Star Wars API</h1>
+
+    <ul id="peopleList"></ul>
+
+    <script>
+
+        let peopleList = document.getElementById("peopleList");
+        let url = "https://swapi.dev/api/";
+
+        async function fetchPeople() {
+
+            const response = await fetch(url + "people");
+            console.log(response);
+
+            const data = await response.json();
+            console.log(data);
+            console.log(data.results[0].name);
+
+
+            data.results.forEach(person => {
+
+                let id = person.url.split('/')[5];
+
+                peopleList.innerHTML += `<li>
+                        <h2>${person.name}</h2>
+                        <img src="https://starwarsgallery.netlify.app/assets/people/${id}.jpg">
+                    </li>`;
+                
+            });
+
+        }
+
+        fetchPeople();
+
+    </script>
+
+</body>
+</html>
