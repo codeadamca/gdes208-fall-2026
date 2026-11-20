@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Googel Books API</title>
+</head>
+<body>
+
+    <h1>Google Books API</h1>
+
+    <ul id="bookList"></ul>
+
+    <script>
+
+        let key = "";
+        let url = "https://www.googleapis.com/books/v1/";
+        let bookList = document.getElementById("bookList");
+
+        async function fetchBooks() {
+
+            const response = await fetch(url + "volumes?q=javascript&key=" + key);
+            console.log(response);
+
+            const data = await response.json();
+            console.log(data);
+
+            data.items.forEach((item) => {
+
+                // console.log(item.volumeInfo.title);
+                // console.log(item.volumeInfo.imageLinks.thumbnail);
+
+                bookList.innerHTML += `<li><h2>${item.volumeInfo.title}</h2>
+                       <img src="${item.volumeInfo.imageLinks.smallThumbnail}">
+                    </li>`;
+
+            });
+
+        }
+
+        fetchBooks();
+
+        // livecode.codeadam.ca
+
+    </script>
+    
+</body>
+</html>
